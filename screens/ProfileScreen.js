@@ -251,13 +251,6 @@ export default function ProfileScreen({ navigation }) {
           
           <View style={styles.headerButtons}>
             <TouchableOpacity 
-              style={styles.demoButton} 
-              onPress={() => navigation.navigate('DemoHelper')}
-            >
-              <Ionicons name="flask-outline" size={20} color="white" />
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
               style={styles.messagesButton} 
               onPress={() => navigation.navigate('Conversations')}
             >
