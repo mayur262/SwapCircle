@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../lib/supabase';
 import { COLORS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function OrdersScreen({ navigation }) {
   const { user } = useAuth();
@@ -111,7 +112,7 @@ export default function OrdersScreen({ navigation }) {
             {isOwner ? 'Borrower' : 'Owner'}: {otherUser?.name || 'Unknown'}
           </Text>
           <View style={styles.row}>
-            <View style={[styles.statusBadge, { backgroundColor: getStatusColor(tx.status) }]}> 
+            <View style={[styles.statusBadge, { backgroundColor: getStatusColor(tx.status) }]}>
               <Text style={styles.statusText}>{tx.status}</Text>
             </View>
             {tx.items?.type === 'rent' && tx.items?.price ? (
@@ -164,9 +165,9 @@ export default function OrdersScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Orders</Text>
+        <Text style={styles.headerTitle}>Your Orders</Text>
         <TouchableOpacity onPress={onRefresh}>
           <Ionicons name="refresh" size={22} color={COLORS.text} />
         </TouchableOpacity>
@@ -176,35 +177,23 @@ export default function OrdersScreen({ navigation }) {
         keyExtractor={(tx) => tx.id}
         renderItem={renderOrder}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 24 }}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={<View style={styles.empty}><Ionicons name="list" size={48} color={COLORS.textSecondary} /><Text style={styles.emptyText}>No orders yet</Text></View>}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'pending':
-      return '#f0ad4e';
-    case 'accepted':
-      return '#5cb85c';
-    case 'completed':
-      return '#5bc0de';
-    case 'rejected':
-      return '#d9534f';
-    default:
-      return COLORS.textSecondary;
-  }
-};
-
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, paddingHorizontal: 16 },
+  container: { flex: 1, backgroundColor: '#F8FAFC' },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, paddingHorizontal: 16, marginBottom: 8 },
   headerTitle: { fontSize: 20, fontWeight: '600', color: COLORS.text },
   loadingContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   loadingText: { marginTop: 8, color: COLORS.textSecondary },
-  card: { flexDirection: 'row', alignItems: 'flex-start', padding: 12, borderBottomColor: '#eee', borderBottomWidth: 1 },
-  itemImage: { width: 72, height: 72, borderRadius: 8, marginRight: 12, backgroundColor: '#eee' },
+  card: { flexDirection: 'row', alignItems: 'flex-start', padding: 12, backgroundColor: '#fff', borderRadius: 12, marginBottom: 12, 
+    shadowColor: '#000', shadowOpacity: 0.06, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 2 },
+  itemImage: { width: 72, height: 72, borderRadius: 10, marginRight: 12, backgroundColor: '#eee' },
   title: { fontSize: 16, fontWeight: '600', color: COLORS.text },
   subtitle: { fontSize: 13, color: COLORS.textSecondary, marginTop: 2 },
   row: { flexDirection: 'row', alignItems: 'center', marginTop: 6, gap: 8 },
@@ -220,6 +209,21 @@ const styles = StyleSheet.create({
   actionBtn: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
   actionsDisabled: { marginLeft: 8, alignItems: 'center', justifyContent: 'center' },
   actionsHint: { fontSize: 10, color: COLORS.textSecondary, marginTop: 4 },
-  empty: { alignItems: 'center', marginTop: 32 },
+  empty: { alignItems: 'center', marginTop: 64 },
   emptyText: { marginTop: 8, color: COLORS.textSecondary }
 });
+
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'pending':
+      return '#f0ad4e';
+    case 'accepted':
+      return '#5cb85c';
+    case 'completed':
+      return '#5bc0de';
+    case 'rejected':
+      return '#d9534f';
+    default:
+      return COLORS.textSecondary;
+  }
+};

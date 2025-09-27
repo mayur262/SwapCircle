@@ -35,6 +35,7 @@ export const COLORS = {
   accent: '#FF9800',
   background: '#F5F5F5',
   surface: '#FFFFFF',
+  inputBackground: '#FFFFFF',
   text: '#212121',
   textSecondary: '#757575',
   border: '#E0E0E0',

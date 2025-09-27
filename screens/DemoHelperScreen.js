@@ -167,10 +167,10 @@ export default function DemoHelperScreen({ navigation }) {
 
           <DemoStep
             number="5"
-            title="Check Eco Dashboard"
-            description="View environmental impact and leaderboard"
-            buttonText="Eco Dashboard"
-            onPress={() => navigation.navigate('EcoDashboard')}
+            title="Orders"
+            description="View your orders and statuses"
+            buttonText="Orders"
+            onPress={() => navigation.navigate('Orders')}
           />
 
           <DemoStep

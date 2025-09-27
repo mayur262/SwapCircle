@@ -17,7 +17,6 @@ import OTPVerificationScreen from './screens/auth/OTPVerificationScreen';
 import FeedScreen from './screens/FeedScreen';
 import AddItemScreen from './screens/AddItemScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import EcoDashboardScreen from './screens/EcoDashboardScreen';
 import TransactionDetailScreen from './screens/TransactionDetailScreen';
 import DemoHelperScreen from './screens/DemoHelperScreen';
 import ItemDetailScreen from './screens/ItemDetailScreen';
@@ -51,8 +50,6 @@ function MainTabs() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'AddItem') {
             iconName = focused ? 'add-circle' : 'add-circle-outline';
-          } else if (route.name === 'EcoDashboard') {
-            iconName = focused ? 'leaf' : 'leaf-outline';
           } else if (route.name === 'Orders') {
             iconName = focused ? 'list' : 'list-outline';
           } else if (route.name === 'Profile') {
@@ -87,11 +84,6 @@ function MainTabs() {
         name="AddItem" 
         component={AddItemScreen}
         options={{ tabBarLabel: 'Add Item' }}
-      />
-      <Tab.Screen 
-        name="EcoDashboard" 
-        component={EcoDashboardScreen}
-        options={{ tabBarLabel: 'Eco Impact' }}
       />
       <Tab.Screen 
         name="Orders" 
